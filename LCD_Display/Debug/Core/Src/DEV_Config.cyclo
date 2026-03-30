@@ -1,4 +1,0 @@
-../Core/Src/DEV_Config.c:41:6:DEV_delay_ms	1
-../Core/Src/DEV_Config.c:47:6:DEV_SPI_WRite	1
-../Core/Src/DEV_Config.c:52:5:DEV_Module_Init	1
-../Core/Src/DEV_Config.c:61:6:DEV_Module_Exit	1
