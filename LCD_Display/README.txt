@@ -1,0 +1,1 @@
+Basic project for testing 2-Inch LCD Module functionality with STM32F401RE
