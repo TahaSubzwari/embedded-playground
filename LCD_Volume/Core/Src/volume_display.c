@@ -26,39 +26,32 @@ void LCD_2in_test()
   printf("Painting...\r\n");
 	Paint_SetRotate(ROTATE_0);
 	Paint_DrawString_EN (70, 10, "Volume", &Font20, WHITE, RED);
-
-  DrawVolumeDial(95);
-	
-  
-	DEV_Delay_ms(3000);
-	
-	printf("quit...\r\n");
-	//DEV_Module_Exit();
   
 }
 
 void DrawVolumeDial(int volume)
 {
+	Paint_Clear(BLACK);
     UWORD xc = 120; // center (adjust to your screen)
     UWORD yc = 120;
     UWORD radius = 80;
 
     float start = -3.5;
     float end   = 0.35;
-    volume *= 10;
+    int scaled = volume * 10;
 
     // 1. Background arc (grey)
     Paint_DrawArc(xc, yc, radius, start, end, GRAY, DOT_PIXEL_2X2);
 
     // 2. Progress arc (filled)
-    float progress = volume / 1000.0f;
+    float progress = scaled / 1000.0f;
     float current = start + (end - start) * progress;
 
     Paint_DrawArc(xc, yc, radius, start, current, RED, DOT_PIXEL_2X2);
 
     // 3. Draw number
     char buf[10];
-    sprintf(buf, "%d", volume/10);
+    sprintf(buf, "%d", volume);
 
     Paint_DrawString_EN(xc - 18, yc + 40, buf, &Font24, WHITE, WHITE);
 

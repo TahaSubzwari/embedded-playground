@@ -1,0 +1,1 @@
+This project's primary purpose is to present a simple UI to display volume level controlled by a potentiometer on a 2-inch LCD Module.

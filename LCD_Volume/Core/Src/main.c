@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "adc.h"
 #include "spi.h"
 #include "tim.h"
 #include "usart.h"
@@ -96,14 +97,31 @@ int main(void)
   MX_USART2_UART_Init();
   MX_SPI1_Init();
   MX_TIM3_Init();
+  MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
-	LCD_2in_test();
+  LCD_2in_test();
+  uint32_t adc_val = 0;
+  int volume = 0;
+  int prev_vol = -1;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
+	  HAL_ADC_Start(&hadc1);
+	  HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
+	  adc_val = HAL_ADC_GetValue(&hadc1);
+		  // Convert 0–4095 → 0–100
+	  volume = (adc_val * 100) / 4095;
+
+	  if(abs(volume - prev_vol) > 1){
+		  DrawVolumeDial(volume);
+		  prev_vol = volume;
+		  HAL_Delay(500);
+	  }
+	  HAL_Delay(50);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
